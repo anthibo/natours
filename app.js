@@ -19,6 +19,7 @@ const viewRouter = require('./routes/viewRoutes');
 
 // start server
 const app = express();
+app.enable('trus proxy')
 
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'views'))
