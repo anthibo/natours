@@ -8,6 +8,7 @@ const xss = require('xss-clean')
 const hpp = require('hpp')
 const cookieParser = require('cookie-parser')
 const compression = require('compression')
+const cors = require('cors')
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -30,8 +31,17 @@ if (process.env.NODE_ENV === 'development') {
 
 
 // global middlwares
+//implement cors for all clients for simple requests
+app.use(cors())
+
+// api.natours.com, natours.com
+// app.use(cors({ origin: 'https://natours.com' }))
+
 //serving static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.options('*', cors())
 // set security http headers
 app.use(
   helmet.contentSecurityPolicy({
